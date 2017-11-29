@@ -1,0 +1,24 @@
+---
+- name: remove tomcat running user
+  user: name={{ tomcat_running_user }} createhome=no home={{ tomcat_user_home }} shell=/usr/sbin/nologin
+  when: not tomcat_user_status
+
+- name: judge the port
+  shell: /bin/ls {{ tomcat_service_dir }}|grep {{ item.value.tomcat_connection_port }} | wc -l
+  register: port
+
+- name: remove tomcat service dir
+  file: path={{ tomcat_service_dir }}/{{ tomcat_service_name }} state=absent
+  when: port.stdout == '1'
+- name: remove tomcat log files
+  file: path={{ tomcat_project_log_dir }} state=absent
+  when: port.stdout == '1'
+
+- name: remove log crontabs
+  cron: name={{ item.name }}  hour=1 minute=59 job={{ item.job }} state=absent
+  with_items:
+    - {name: 'wayne {{ tomcat_service_name }} clean log',job: 'find {{ tocmat_local_log_dir }} -mtime +30 -name "*.log"|xargs rm -rf'}
+    - {name: 'wayne {{ tomcat_service_name }} compress log',job: 'find {{ tocmat_local_log_dir }} -name "*.log" -mtime +0 -exec gzip \{} \; &>/dev/null'}
+    - {name: 'wayne {{ item.value.tomcat_project_name }} clean log',job: 'find {{ tomcat_project_log_dir }} -mtime +30 -name "*.log"|xargs rm -rf'}
+    - {name: 'wayne {{ item.value.tomcat_project_name }} compress log',job: 'find {{ tomcat_project_log_dir }} -name "*.log" -mtime +0 -exec gzip \{} \; &>/dev/null'}
+  when: port.stdout == '1'

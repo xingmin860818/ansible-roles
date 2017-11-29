@@ -1,0 +1,3 @@
+CATALINA_PID="$CATALINA_BASE/bin/catalina.pid"
+JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
+JAVA_OPTS="$JAVA_OPTS -server {{ item.value.tomcat_jvm_memory_parameters }} {{ item.value.tomcat_jvm_dump_parameters }} {{ item.value.tomcat_jvm_gc_parameters }}"

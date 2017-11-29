@@ -1,0 +1,18 @@
+--- 
+# importent varibles
+tomcat_name: 'tomcat-{{ tomcat_version }}'
+tomcat_package_name: '{{ tomcat_name }}.tar'
+tomcat_user_home: '/data'
+tomcat_service_dir: '{{ tomcat_user_home }}/services'
+tomcat_project_log_dir: '{{ tomcat_user_home }}/logs/{{ item.value.tomcat_project_name }}'
+tocmat_local_log_dir: '{{ tomcat_service_dir }}/{{ tomcat_service_name }}/logs'
+tomcat_checksum:
+tomcat_running_user: 'app'
+tomcat_service_name: 'tomcat-{{ item.value.tomcat_project_name }}-{{ item.value.tomcat_connection_port }}'
+jvm_monitor_parameter: 'JAVA_OPTS="$JAVA_OPTS -server -Djava.rmi.server.hostname={{ ansible_all_ipv4_addresses[0] }} -Dcom.sun.management.jmxremote.port={{ item.value.tomcat_jvm_monitor_port }} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false'
+
+# gernerate a random num for crontab
+tomcat_minute_random: "{{ 60 | random }}"
+tomcat_hour_random: "{{ 6 | random }}"
+
+tomcat_cronolog_version: '1.6.2+rpk-1ubuntu1'

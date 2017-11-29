@@ -1,0 +1,3 @@
+---
+- name: shutdown tomcat
+  shell: /bin/sh {{ tomcat_service_dir }}/{{ tomcat_service_name }}/bin/shutdown.sh

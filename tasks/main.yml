@@ -1,0 +1,11 @@
+---
+- name: create tomcat running user
+  user: name={{ tomcat_running_user }} home={{ tomcat_user_home }} shell=/usr/sbin/nologin
+  when: tomcat_user_status and tomcat_operation == 'deploy'
+
+- name: loop tomcat projects news
+  include: '{{ tomcat_operation }}.yml'
+  with_dict: '{{ tomcat_wayne }}'
+
+- name: install cronolog on ubuntu
+  apt: name=cronolog={{ tomcat_cronolog_version }} state=present

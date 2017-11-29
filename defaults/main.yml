@@ -1,0 +1,59 @@
+# choose some operations,'deploy' means deploy a new project,'offline' means remove the project. 
+tomcat_operation: 'deploy'
+#when you choose offline ,you must provide these messages:
+# 1、tomcat_server_port
+# 2、tomcat_project_name
+
+#tomcat user status,'true' is add user, 'false' is remove user
+tomcat_user_status: true
+
+# Define the url which can be down
+tomcat_url: 'http://ansible-resource.vpc100-oss-cn-beijing.aliyuncs.com/packages/{{ tomcat_package_name }}'
+
+tomcat_version: '8.0.45'
+
+# md5sum number, will be check if the download file is complete
+# it dosen't support check_sum function in unarchive module
+#tomcat_check_sum:
+#    tomcat-8.0.45.tar: 'md5:43542cbbbfcf97efbad42409be81bc1b'
+
+# public dict,dict name:tomcat_wayne and then the project name,it is invoked by the main task file,and used
+# by anywhere,such as the task files and the var file
+tomcat_wayne:
+    tomcat_project1:
+        tomcat_project_name: capital-server-test
+        tomcat_server_port: 8005
+        tomcat_connection_port: 8080
+        tomcat_jvm_monitor_port: 2090
+        tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
+        tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
+        tomcat_jvm_gc_parameters: '-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -Xloggc:$CATALINA_HOME/logs/gc.log'
+        tomcat_jvm_monitor: false
+    tomcat_project2:
+        tomcat_project_name: capital-server-stage1
+        tomcat_server_port: 8035
+        tomcat_connection_port: 8380
+        tomcat_jvm_monitor_port: 2090
+        tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
+        tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
+        tomcat_jvm_gc_parameters: '-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -Xloggc:$CATALINA_HOME/logs/gc.log'
+        tomcat_jvm_monitor: false
+    tomcat_project3:
+        tomcat_project_name: capital-server-stage2
+        tomcat_server_port: 8045
+        tomcat_connection_port: 8480
+        tomcat_jvm_monitor_port: 2090
+        tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
+        tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
+        tomcat_jvm_gc_parameters: '-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -Xloggc:$CATALINA_HOME/logs/gc.log'
+        tomcat_jvm_monitor: false
+#config the jvm monitor,'true' is open the jvm configuration and you must config the 'tomcat_jvm_monitor_port' and this port must be different from the before,'false' is close.
+
+# package name,when you have different version or name, change it
+tomcat_package_name: 'tomcat-{{ tomcat_version }}.tar'
+
+# Define crontab about logs
+# Define the days of the logs could be keeped
+tomcat_log_keepdays: 30
+# Define the days of the logs not be compressed
+tomcat_log_gzip: 5
