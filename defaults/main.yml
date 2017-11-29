@@ -21,27 +21,9 @@ tomcat_version: '8.0.45'
 # by anywhere,such as the task files and the var file
 tomcat_wayne:
     tomcat_project1:
-        tomcat_project_name: capital-server-test
+        tomcat_project_name: 
         tomcat_server_port: 8005
         tomcat_connection_port: 8080
-        tomcat_jvm_monitor_port: 2090
-        tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
-        tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
-        tomcat_jvm_gc_parameters: '-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -Xloggc:$CATALINA_HOME/logs/gc.log'
-        tomcat_jvm_monitor: false
-    tomcat_project2:
-        tomcat_project_name: capital-server-stage1
-        tomcat_server_port: 8035
-        tomcat_connection_port: 8380
-        tomcat_jvm_monitor_port: 2090
-        tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
-        tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
-        tomcat_jvm_gc_parameters: '-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -Xloggc:$CATALINA_HOME/logs/gc.log'
-        tomcat_jvm_monitor: false
-    tomcat_project3:
-        tomcat_project_name: capital-server-stage2
-        tomcat_server_port: 8045
-        tomcat_connection_port: 8480
         tomcat_jvm_monitor_port: 2090
         tomcat_jvm_memory_parameters: '-Xmx1G -Xms1G'
         tomcat_jvm_dump_parameters: '-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$CATALINA_HOME/logs/dump'
